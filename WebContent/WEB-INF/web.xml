@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
+  <display-name>ServletProject</display-name>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+
+  </welcome-file-list>
+  
+  <servlet>
+   <servlet-name>LoginServlet</servlet-name>
+    <servlet-class>servlet.LoginServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>LoginServlet</servlet-name>
+    <url-pattern>/LoginServlet.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+   <servlet-name>RegisterServlet</servlet-name>
+    <servlet-class>servlet.RegisterServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RegisterServlet</servlet-name>
+    <url-pattern>/RegisterServlet.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+   <servlet-name>StudentDelete</servlet-name>
+    <servlet-class>servlet.StudentDeleteServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>StudentDelete</servlet-name>
+    <url-pattern>/student/delete.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>StudentList</servlet-name>
+    <servlet-class>servlet.StudentListServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>StudentList</servlet-name>
+    <url-pattern>/student/list.do</url-pattern>
+  </servlet-mapping>
+</web-app>
