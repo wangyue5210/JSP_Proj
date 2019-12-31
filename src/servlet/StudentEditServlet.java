@@ -20,48 +20,50 @@ import util.DBUtil;
 /**
  * Servlet implementation class LoginServlet
  */
-public class StudentListServlet extends HttpServlet {
+public class StudentEditServlet extends HttpServlet {
 	
     
 
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("进入到学生信息列表操作");
-		response.setContentType("text/html;charset=utf-8");
+		System.out.println("进入到修改学生信息列表操作");
+		request.setCharacterEncoding("UTF-8");
+		String id=request.getParameter("id");
 		
-		Connection conn2=null;
-		PreparedStatement ps2=null;
-		ResultSet rs2=null;
-		String sql2="select id,name,age from tbl_student ";
-		List<Student> list=new ArrayList<Student>();
+		
+		
+		Connection conn=null;
+		PreparedStatement ps=null;
+		ResultSet rs=null;
+		String sql="select name,age from tbl_student where id=?;";
+		Student student=new Student();
+		
 		try {
-			conn2=DBUtil.getConnection();
-			ps2=conn2.prepareStatement(sql2);
-			rs2=ps2.executeQuery();
-			while (rs2.next()) {
-				Student s=new Student();
-				s.setId(rs2.getString(1));
-				s.setName(rs2.getString(2));
-				s.setAge(rs2.getInt(3));
-				list.add(s);
-			}
-		} catch (SQLException e) {
+			conn=DBUtil.getConnection();
+			ps = conn.prepareStatement(sql);
+			ps.setString(1,id);
+			rs = ps.executeQuery();
 			
+			if(rs.next()) {
+				student.setId(id);
+				student.setName(rs.getString(1));
+				student.setAge(rs.getInt(2));
+			}
+			
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
 			try {
-				DBUtil.DBClose(conn2, ps2, rs2);
+				DBUtil.DBClose(conn, ps, rs);
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
+				
 				e.printStackTrace();
 			}
 		}
 		
-	//应该使用转发,使用request域將list传到index.jsp
-		request.setAttribute("list",list );
-		request.getRequestDispatcher("/jsp/student/index.jsp").forward(request, response);
-		
-		
+		//把查询到的学生信息存到request域，然后转发到edit.jsp
+		request.setAttribute("student", student);
+		request.getRequestDispatcher("/jsp/student/edit.jsp").forward(request, response);
 		
 	}
 

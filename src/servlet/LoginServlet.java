@@ -25,9 +25,7 @@ public class LoginServlet extends HttpServlet {
     
 @Override
 	public void init() throws ServletException {
-		int count=0;
-		this.getServletContext().setAttribute("count", count);
-		//在servlet初始化的时候，将值存进上下文对象
+		
 	}
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -72,10 +70,8 @@ public class LoginServlet extends HttpServlet {
 		}
 		
 		if (flag) {
-		int count = (int) this.getServletContext().getAttribute("count");
-		count++;
-		this.getServletContext().setAttribute("count", count);
-			response.sendRedirect("/ServletProject/student/list.do");
+			request.getSession().setAttribute("username", username);
+			response.sendRedirect("/JspProject/student/list.do");
 			
 		}else {
 			
@@ -88,7 +84,7 @@ public class LoginServlet extends HttpServlet {
 			 * out.print("</html>"); out.close();
 			 */
 			
-			response.sendRedirect("/ServletProject/LoginFail.html");
+			response.sendRedirect("/JspProject/login.jsp");
 		}
 		
 	}

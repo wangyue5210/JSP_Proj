@@ -23,7 +23,7 @@ public class DBUtil {
 		}
 	}
 	
-	private static final String url="jdbc:mysql://localhost:3306/training?serverTimezone=UTC";
+	private static final String url="jdbc:mysql://localhost:3306/training?serverTimezone=UTC&characterEncoding=UTF-8";
 	private static final String user="root";
 	private static final String password="root";
 	

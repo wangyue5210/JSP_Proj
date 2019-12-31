@@ -55,7 +55,7 @@ public class StudentDeleteServlet extends HttpServlet {
 		}
 		
 		
-		response.sendRedirect("/ServletProject/student/list.do");
+		response.sendRedirect("/JspProject/student/list.do");
 		
 	}
 

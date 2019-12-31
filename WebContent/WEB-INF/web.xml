@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
-  <display-name>ServletProject</display-name>
+  <display-name>JspProject</display-name>
   <welcome-file-list>
-    <welcome-file>index.html</welcome-file>
+    <welcome-file>login.jsp</welcome-file>
 
   </welcome-file-list>
   
@@ -41,4 +41,32 @@
     <servlet-name>StudentList</servlet-name>
     <url-pattern>/student/list.do</url-pattern>
   </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>StudentSaveList</servlet-name>
+    <servlet-class>servlet.StudentSaveServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>StudentSaveList</servlet-name>
+    <url-pattern>/student/save.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>StudentEditList</servlet-name>
+    <servlet-class>servlet.StudentEditServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>StudentEditList</servlet-name>
+    <url-pattern>/student/edit.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>StudentUpdateList</servlet-name>
+    <servlet-class>servlet.StudentUpdateServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>StudentUpdateList</servlet-name>
+    <url-pattern>/student/update.do</url-pattern>
+  </servlet-mapping>
+  
 </web-app>
