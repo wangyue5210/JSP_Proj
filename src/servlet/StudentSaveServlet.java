@@ -59,7 +59,7 @@ public class StudentSaveServlet extends HttpServlet {
 		}
 		
 		
-		response.sendRedirect("/JspProject/student/list.do");
+		response.sendRedirect(request.getContextPath()+"/student/list.do");
 		
 	}
 

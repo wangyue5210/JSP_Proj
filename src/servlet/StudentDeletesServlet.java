@@ -20,13 +20,15 @@ import util.DBUtil;
 /**
  * Servlet implementation class LoginServlet
  */
-public class StudentDeleteServlet extends HttpServlet {
+public class StudentDeletesServlet extends HttpServlet {
 	
     
 
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String id=request.getParameter("id");
+		HttpServletRequest request2 = request;
+		
+		String[] ids=request.getParameterValues("id");
 		
 
 		response.setContentType("text/html;charset=utf-8");
@@ -37,13 +39,25 @@ public class StudentDeleteServlet extends HttpServlet {
 		String sql="delete from tbl_student where id =?";
 		
 		
+		
 		try {
 			conn=DBUtil.getConnection();
 			ps = conn.prepareStatement(sql);
-			ps.setString(1, id);
-			ps.execute();
+			conn.setAutoCommit(false);//处理事务，关闭自动提交
+			for (String s : ids) {
+				//System.out.println(s);
+				ps.setString(1, s);
+				ps.executeUpdate();
+			}
+			conn.commit();
 			
 		} catch (SQLException e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			e.printStackTrace();
 		}finally {
 			try {
@@ -55,7 +69,7 @@ public class StudentDeleteServlet extends HttpServlet {
 		}
 		
 		
-		response.sendRedirect(request.getContextPath()+"/student/list.do");
+		response.sendRedirect(request2.getContextPath()+"/student/list.do");
 		
 	}
 

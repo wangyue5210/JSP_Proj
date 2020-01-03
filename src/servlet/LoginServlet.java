@@ -71,7 +71,7 @@ public class LoginServlet extends HttpServlet {
 		
 		if (flag) {
 			request.getSession().setAttribute("username", username);
-			response.sendRedirect("/JspProject/student/list.do");
+			response.sendRedirect(request.getContextPath()+"/student/list.do");
 			
 		}else {
 			
