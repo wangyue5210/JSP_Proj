@@ -14,78 +14,77 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import domain.Student;
+import domain.City;
+import domain.Province;
+
 import util.DBUtil;
 
 /**
  * Servlet implementation class LoginServlet
  */
-public class LoginServlet extends HttpServlet {
+public class CityListServlet extends HttpServlet {
 	
     
-@Override
-	public void init() throws ServletException {
-		
-	}
+
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String username=request.getParameter("username");
-		String password=request.getParameter("password");
-//		System.out.println(name+pass);
+		System.out.println("进入到城市操作");
 		response.setContentType("text/html;charset=utf-8");
-		
-		
+		String pidString=request.getParameter("pid");
+		int pid=Integer.parseInt(pidString);
 		Connection conn=null;
 		PreparedStatement ps=null;
 		ResultSet rs=null;
-		String sql="select count(*) from tbl_user where username=? and password=?";
-		boolean flag=true;
-		
+		String sql="select id,name from tbl_city where pid=?";
+		List<City> clist=new ArrayList<City>();
 		try {
 			conn=DBUtil.getConnection();
 			ps=conn.prepareStatement(sql);
-			ps.setString(1, username);
-			ps.setString(2, password);
-			rs=ps.executeQuery();
-			if (rs.next()) {
-				int count=rs.getInt(1);
-				
-				if (count!=1) {
-					flag=false;
-				}
-				
-				
-				
-			}
+			ps.setInt(1, pid);
 			
+			rs=ps.executeQuery();
+			while (rs.next()) {
+				City c=new City();
+				c.setId(rs.getInt(1));
+				c.setName(rs.getString(2));
+				
+				clist.add(c);
+			}
 		} catch (SQLException e) {
+			
 			e.printStackTrace();
 		}finally {
 			try {
 				DBUtil.DBClose(conn, ps, rs);
 			} catch (SQLException e) {
-				
+				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
+		//{"plist":[{"id":?,"name":"?"},{},{}]}
 		
-		if (flag) {
-			request.getSession().setAttribute("username", username);
-			response.sendRedirect(request.getContextPath()+"/student/list.do");
-			
-		}else {
-			
-			
-			//设置响应头信息
-			/*
-			 * response.setHeader("refresh","3,url=/ServletProject/login.html" );
-			 * PrintWriter out=response.getWriter(); out.print("<html>");
-			 * out.print("<body>"); out.print("登录失败,三秒钟之后跳转到登录页"); out.print("</body>");
-			 * out.print("</html>"); out.close();
-			 */
-			
-			response.sendRedirect("/JspProject/login.jsp");
+		StringBuffer buf=new StringBuffer();
+		buf.append("{\"clist\":[");
+		for (int i = 0; i < clist.size(); i++) {
+			City c=clist.get(i);
+			buf.append("{\"id\":");
+			buf.append(c.getId());
+			buf.append(",\"name\":\"");
+			buf.append(c.getName());
+			buf.append("\"}");
+			if(i < clist.size()-1) {
+				buf.append(",");
+			}
 		}
+		buf.append("]}");
+		
+		PrintWriter out=response.getWriter();
+		System.out.println(buf.toString());
+		out.print(buf.toString());
+		out.close();
+	
+		
+		
 		
 	}
 

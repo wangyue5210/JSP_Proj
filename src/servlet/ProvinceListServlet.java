@@ -14,56 +14,73 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import domain.Student;
+import domain.Province;
+
 import util.DBUtil;
 
 /**
  * Servlet implementation class LoginServlet
  */
-public class StudentEditServlet extends HttpServlet {
+public class ProvinceListServlet extends HttpServlet {
 	
     
 
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("进入到修改学生信息列表操作");
-		request.setCharacterEncoding("UTF-8");
-		String id=request.getParameter("id");
-		
-		
+		System.out.println("进入到省份操作");
+		response.setContentType("text/html;charset=utf-8");
 		
 		Connection conn=null;
 		PreparedStatement ps=null;
 		ResultSet rs=null;
-		String sql="select name,age from tbl_student where id=?;";
-		Student student=new Student();
-		
+		String sql="select id,name from tbl_province ";
+		List<Province> plist=new ArrayList<Province>();
 		try {
 			conn=DBUtil.getConnection();
-			ps = conn.prepareStatement(sql);
-			ps.setString(1,id);
-			rs = ps.executeQuery();
-			
-			if(rs.next()) {
-				student.setId(id);
-				student.setName(rs.getString(1));
-				student.setAge(rs.getInt(2));
+			ps=conn.prepareStatement(sql);
+			rs=ps.executeQuery();
+			while (rs.next()) {
+				Province p=new Province();
+				p.setId(rs.getInt(1));
+				p.setName(rs.getString(2));
+				
+				plist.add(p);
 			}
-			
 		} catch (SQLException e) {
+			
 			e.printStackTrace();
 		}finally {
 			try {
 				DBUtil.DBClose(conn, ps, rs);
 			} catch (SQLException e) {
-				
+				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
+		//{"plist":[{"id":?,"name":"?"},{},{}]}
 		
-		//把查询到的学生信息存到request域，然后转发到edit.jsp
-		request.setAttribute("student", student);
-		request.getRequestDispatcher("/jsp/student/edit.jsp").forward(request, response);
+		StringBuffer buf=new StringBuffer();
+		buf.append("{\"plist\":[");
+		for (int i = 0; i < plist.size(); i++) {
+			Province p=plist.get(i);
+			buf.append("{\"id\":");
+			buf.append(p.getId());
+			buf.append(",\"name\":\"");
+			buf.append(p.getName());
+			buf.append("\"}");
+			if(i < plist.size()-1) {
+				buf.append(",");
+			}
+		}
+		buf.append("]}");
+		
+		PrintWriter out=response.getWriter();
+		//System.out.println(buf.toString());
+		out.print(buf.toString());
+		out.close();
+	
+		
+		
 		
 	}
 

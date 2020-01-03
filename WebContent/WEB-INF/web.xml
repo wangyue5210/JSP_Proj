@@ -2,80 +2,28 @@
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
   <display-name>JspProject2.0</display-name>
   <welcome-file-list>
-    <welcome-file>login.jsp</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
 
   </welcome-file-list>
   
-  <servlet>
-   <servlet-name>LoginServlet</servlet-name>
-    <servlet-class>servlet.LoginServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>LoginServlet</servlet-name>
-    <url-pattern>/LoginServlet.do</url-pattern>
-  </servlet-mapping>
   
   <servlet>
-   <servlet-name>RegisterServlet</servlet-name>
-    <servlet-class>servlet.RegisterServlet</servlet-class>
+    <servlet-name>ProvinceList</servlet-name>
+    <servlet-class>servlet.ProvinceListServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>RegisterServlet</servlet-name>
-    <url-pattern>/RegisterServlet.do</url-pattern>
-  </servlet-mapping>
-  
-  <servlet>
-   <servlet-name>StudentDelete</servlet-name>
-    <servlet-class>servlet.StudentDeleteServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>StudentDelete</servlet-name>
-    <url-pattern>/student/delete.do</url-pattern>
+    <servlet-name>ProvinceList</servlet-name>
+    <url-pattern>/province/list.do</url-pattern>
   </servlet-mapping>
   
     <servlet>
-   <servlet-name>StudentDeletes</servlet-name>
-    <servlet-class>servlet.StudentDeletesServlet</servlet-class>
+    <servlet-name>CityList</servlet-name>
+    <servlet-class>servlet.CityListServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>StudentDeletes</servlet-name>
-    <url-pattern>/student/deletes.do</url-pattern>
+    <servlet-name>CityList</servlet-name>
+    <url-pattern>/city/list.do</url-pattern>
   </servlet-mapping>
-  
-  <servlet>
-    <servlet-name>StudentList</servlet-name>
-    <servlet-class>servlet.StudentListServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>StudentList</servlet-name>
-    <url-pattern>/student/list.do</url-pattern>
-  </servlet-mapping>
-  
-  <servlet>
-    <servlet-name>StudentSaveList</servlet-name>
-    <servlet-class>servlet.StudentSaveServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>StudentSaveList</servlet-name>
-    <url-pattern>/student/save.do</url-pattern>
-  </servlet-mapping>
-  
-  <servlet>
-    <servlet-name>StudentEditList</servlet-name>
-    <servlet-class>servlet.StudentEditServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>StudentEditList</servlet-name>
-    <url-pattern>/student/edit.do</url-pattern>
-  </servlet-mapping>
-  
-  <servlet>
-    <servlet-name>StudentUpdateList</servlet-name>
-    <servlet-class>servlet.StudentUpdateServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>StudentUpdateList</servlet-name>
-    <url-pattern>/student/update.do</url-pattern>
-  </servlet-mapping>
+
   
 </web-app>
